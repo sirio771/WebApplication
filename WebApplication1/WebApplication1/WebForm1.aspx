@@ -11,7 +11,7 @@
     <div>
     
         <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true"></asp:ScriptManager>
-        <asp:Timer ID="timer1" runat="server" Interval="10000" OnTick="timer1_tick"></asp:Timer>
+        <asp:Timer ID="timer1" runat="server" Interval="3000" OnTick="timer1_tick"></asp:Timer>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="idluogo,idtitolare" DataSourceID="SqlDataSource1" AllowSorting="True" OnSelectedIndexChanged="GridView1_SelectedIndexhanged" RowHeaderColumn="nome_centro">
@@ -23,6 +23,7 @@
                 <asp:BoundField DataField="idtitolare" HeaderText="idtitolare" ReadOnly="True" SortExpression="idtitolare" />
             </Columns>
         </asp:GridView>
+            <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:mrc_dbConnectionString %>" ProviderName="<%$ ConnectionStrings:mrc_dbConnectionString.ProviderName %>" SelectCommand="SELECT * FROM palestra"></asp:SqlDataSource>
         </ContentTemplate>
             <Triggers>

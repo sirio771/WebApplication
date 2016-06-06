@@ -21,11 +21,13 @@ namespace Gest_Palestre
 
         protected void timer1_tick(object sender, EventArgs e)
         {
-            if (0 > DateTime.Compare(DateTime.Now, DateTime.Parse(Session["timeout"].ToString())))
-            {
-                //Aggiorna tabella
-                ((Int32)DateTime.Parse(Session["timeout"].ToString()).Subtract(DateTime.Now).TotalMinutes).ToString();
-            }
+            //if (0 > DateTime.Compare(DateTime.Now, DateTime.Parse(Session["timeout"].ToString())))
+            //{
+            //Aggiorna tabella
+            GridView1.DataBind();
+            Label1.Text = DateTime.Now.ToString();
+            //    ((Int32)DateTime.Parse(Session["timeout"].ToString()).Subtract(DateTime.Now).TotalMinutes).ToString();
+            //}
         }
     }
 }
