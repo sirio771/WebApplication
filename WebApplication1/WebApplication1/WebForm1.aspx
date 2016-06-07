@@ -14,25 +14,23 @@
         <asp:Timer ID="timer1" runat="server" Interval="3000" OnTick="timer1_tick"></asp:Timer>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="idluogo,idtitolare" DataSourceID="SqlDataSource1" AllowSorting="True" OnSelectedIndexChanged="GridView1_SelectedIndexhanged" RowHeaderColumn="nome_centro">
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="idsensore_ambientale" DataSourceID="SqlDataSource1" AllowSorting="True" OnSelectedIndexChanged="GridView1_SelectedIndexhanged" RowHeaderColumn="nome_centro">
             <Columns>
-                <asp:BoundField DataField="idluogo" HeaderText="idluogo" ReadOnly="True" SortExpression="idluogo" />
-                <asp:BoundField DataField="citta" HeaderText="citta" SortExpression="citta" />
-                <asp:BoundField DataField="via" HeaderText="via" SortExpression="via" />
-                <asp:BoundField DataField="nome_centro" HeaderText="nome_centro" SortExpression="nome_centro" />
-                <asp:BoundField DataField="idtitolare" HeaderText="idtitolare" ReadOnly="True" SortExpression="idtitolare" />
+                <asp:BoundField DataField="timestamp" HeaderText="Orario misure" SortExpression="timestamp" />
+                <asp:BoundField DataField="pressione" HeaderText="Pressione (mbar)" SortExpression="pressione" />
+                <asp:BoundField DataField="temperatura" HeaderText="Temperatura (° C)" SortExpression="temperatura" />
+                <asp:BoundField DataField="umidita" HeaderText="Umidità relativa (%)" SortExpression="umidita" />
+                <asp:BoundField DataField="idsensore_ambientale" HeaderText="Identificativo sensore" ReadOnly="True" SortExpression="idsensore_ambientale" />
             </Columns>
         </asp:GridView>
             <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:mrc_dbConnectionString %>" ProviderName="<%$ ConnectionStrings:mrc_dbConnectionString.ProviderName %>" SelectCommand="SELECT * FROM palestra"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:mrc_dbConnectionString2 %>" ProviderName="<%$ ConnectionStrings:mrc_dbConnectionString2.ProviderName %>" SelectCommand="SELECT timestamp, pressione, temperatura, umidita, idsensore_ambientale FROM misura_ambientale"></asp:SqlDataSource>
         </ContentTemplate>
             <Triggers>
                 <asp:AsyncPostBackTrigger ControlID="timer1" EventName ="tick"/>
             </Triggers>
         </asp:UpdatePanel>
         <br />
-        <asp:TreeView ID="TreeView1" runat="server">
-        </asp:TreeView>
     
     </div>
     </form>
