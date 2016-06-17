@@ -16,7 +16,8 @@ namespace Gest_Palestre
             if (!IsPostBack)
             {
                 DropDownList1.DataBind();
-            }   
+                DropDownList2.DataBind();
+            }
         }
 
         protected void GridView1_SelectedIndexhanged(object sender, EventArgs e)
@@ -32,6 +33,7 @@ namespace Gest_Palestre
             SqlDataSource2.SelectCommand = "SELECT indice_attività, timestamp FROM misura_actigrafo WHERE actigrafo_idactigrafo = '" + DropDownList1.SelectedValue + "' AND timestamp BETWEEN timestamp(DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND timestamp(NOW()) ";
             GridView1.DataBind();
             Label1.Text = DateTime.Now.ToString();
+            Chart1.Series["Series1"].Name = "Sensore " + DropDownList1.SelectedValue;
             //    ((Int32)DateTime.Parse(Session["timeout"].ToString()).Subtract(DateTime.Now).TotalMinutes).ToString();
             //}
         }
@@ -57,12 +59,22 @@ namespace Gest_Palestre
 
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            UpdatePanel1.Update();
         }
 
         protected void SqlDataSource2_Selecting(object sender, SqlDataSourceSelectingEventArgs e)
         {
 
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            SqlDataSource4.SelectCommand = "SELECT nome_centro FROM palestra WHERE idtitolare = (SELECT idtitolare FROM titolare WHERE nome = '"+TextBox1.Text+"' AND cognome = '"+TextBox2.Text+"')";
+        }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            SqlDataSource3.SelectCommand = "SELECT DISTINCT idactigrafo FROM actigrafo WHERE palestra_idluogo = (SELECT DISTINCT idluogo FROM palestra WHERE nome_centro = '" + DropDownList2.SelectedValue + "')";
         }
     }
 }
