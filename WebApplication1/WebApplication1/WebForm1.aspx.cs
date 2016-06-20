@@ -31,7 +31,7 @@ namespace Gest_Palestre
             //if (0 > DateTime.Compare(DateTime.Now, DateTime.Parse(Session["timeout"].ToString())))
             //{
             //Aggiorna tabella
-            SqlDataSource2.SelectCommand = "SELECT indice_attività, timestamp FROM misura_actigrafo WHERE actigrafo_idactigrafo = '" + DropDownList1.SelectedValue + "' AND timestamp BETWEEN timestamp(DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND timestamp(NOW()) ";
+            SqlDataSource2.SelectCommand = "SELECT indice_attività, timestamp FROM misura_actigrafo WHERE idactigrafo = '" + DropDownList1.SelectedValue + "' AND timestamp BETWEEN timestamp(DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND timestamp(NOW()) ";
             GridView1.DataBind();
             Label1.Text = DateTime.Now.ToString();
             Chart1.Series["Series1"].Name = "Sensore " + DropDownList1.SelectedValue;
@@ -47,12 +47,16 @@ namespace Gest_Palestre
         protected void Chart1_Load(object sender, EventArgs e)
         {
             CustomLabel Fermo = new CustomLabel(0.9, 1, "Fermo", 0, LabelMarkStyle.None);
-            CustomLabel Camminata = new CustomLabel(1.9, 2, "Camminata", 0, LabelMarkStyle.None);
-            CustomLabel Corsa = new CustomLabel(2.9, 3, "Corsa", 0, LabelMarkStyle.None);
+            CustomLabel Camminata = new CustomLabel(1.9, 2, "Lento", 0, LabelMarkStyle.None);
+            CustomLabel Moderato = new CustomLabel(2.9, 3, "Moderato", 0, LabelMarkStyle.None);
+            CustomLabel CorsaVeloce = new CustomLabel(3.9, 4, "Veloce", 0, LabelMarkStyle.None);
+            CustomLabel CorsaMoltoVeloce = new CustomLabel(4.9, 5, "Molto Veloce", 0, LabelMarkStyle.None);
             Chart1.ChartAreas[0].AxisY.CustomLabels.Add(Fermo);
             Chart1.ChartAreas[0].AxisY.CustomLabels.Add(Camminata);
-            Chart1.ChartAreas[0].AxisY.CustomLabels.Add(Corsa);
-            Chart1.ChartAreas[0].AxisX.LabelStyle.Interval = 5;
+            Chart1.ChartAreas[0].AxisY.CustomLabels.Add(Moderato);
+            Chart1.ChartAreas[0].AxisY.CustomLabels.Add(CorsaVeloce);
+            Chart1.ChartAreas[0].AxisY.CustomLabels.Add(CorsaMoltoVeloce);
+            Chart1.ChartAreas[0].AxisX.LabelStyle.Interval = 4;
             Chart1.ChartAreas[0].AxisX.LabelStyle.IntervalType = DateTimeIntervalType.Seconds;
             Chart1.ChartAreas[0].AxisX.LabelStyle.Format = "hh:mm:ss";
             Chart1.ChartAreas[0].AxisX.IntervalType = DateTimeIntervalType.Seconds;

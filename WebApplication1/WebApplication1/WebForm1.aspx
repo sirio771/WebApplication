@@ -58,8 +58,8 @@
             <br />
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:mrc_dbConnectionString %>" ProviderName="<%$ ConnectionStrings:mrc_dbConnectionString.ProviderName %>" SelectCommand="SELECT timestamp, pressione, temperatura, umidita, idsensore_ambientale FROM misura_ambientale" OnSelecting="SqlDataSource1_Selecting"></asp:SqlDataSource>
-            <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:mrc_dbConnectionString %>" ProviderName="<%$ ConnectionStrings:mrc_dbConnectionString.ProviderName %>" SelectCommand="SELECT `indice_attività`, `timestamp` FROM misura_actigrafo WHERE (actigrafo_idactigrafo =@Param1) AND TIMESTAMP BETWEEN TIMESTAMP (DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND TIMESTAMP (NOW()) " OnSelecting="SqlDataSource2_Selecting"></asp:SqlDataSource>
-            <asp:Chart ID="Chart1" runat="server" DataSourceID="SqlDataSource2" OnLoad="Chart1_Load" style="margin-top: 0px" Width="461px">
+            <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:mrc_dbConnectionString %>" ProviderName="<%$ ConnectionStrings:mrc_dbConnectionString.ProviderName %>" SelectCommand="SELECT `indice_attività`, `timestamp` FROM misura_actigrafo WHERE (idactigrafo =@Param1) AND TIMESTAMP BETWEEN TIMESTAMP (DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND TIMESTAMP (NOW()) " OnSelecting="SqlDataSource2_Selecting"></asp:SqlDataSource>
+            <asp:Chart ID="Chart1" runat="server" DataSourceID="SqlDataSource2" OnLoad="Chart1_Load" style="margin-top: 0px" Width="884px">
                 <Series>
                     <asp:Series ChartArea="ChartArea1" Legend="Legend1" Name="Series1" XValueMember="timestamp" YValueMembers="indice_attività">
                     </asp:Series>
@@ -73,13 +73,13 @@
                     </asp:Legend>
                 </Legends>
             </asp:Chart>
-            <asp:GridView ID="GridView1" runat="server" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="idsensore_ambientale" DataSourceID="SqlDataSource1" OnSelectedIndexChanged="GridView1_SelectedIndexhanged" RowHeaderColumn="nome_centro">
+            <asp:GridView ID="GridView1" runat="server" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="idsensore_ambientale" DataSourceID="SqlDataSource1" OnSelectedIndexChanged="GridView1_SelectedIndexhanged" RowHeaderColumn="nome_centro" Width="734px">
                 <Columns>
-                    <asp:BoundField DataField="timestamp" HeaderText="timestamp" SortExpression="timestamp" />
-                    <asp:BoundField DataField="pressione" HeaderText="pressione" SortExpression="pressione" />
-                    <asp:BoundField DataField="temperatura" HeaderText="temperatura" SortExpression="temperatura" />
-                    <asp:BoundField DataField="umidita" HeaderText="umidita" SortExpression="umidita" />
-                    <asp:BoundField DataField="idsensore_ambientale" HeaderText="idsensore_ambientale" ReadOnly="True" SortExpression="idsensore_ambientale" />
+                    <asp:BoundField DataField="timestamp" HeaderText="Ora" SortExpression="timestamp" />
+                    <asp:BoundField DataField="pressione" HeaderText="Pressione (mbar)" SortExpression="pressione" />
+                    <asp:BoundField DataField="temperatura" HeaderText="Temperatura (°C)" SortExpression="temperatura" />
+                    <asp:BoundField DataField="umidita" HeaderText="Umidità (%)" SortExpression="umidita" />
+                    <asp:BoundField DataField="idsensore_ambientale" HeaderText="IDsensore" ReadOnly="True" SortExpression="idsensore_ambientale" />
                 </Columns>
             </asp:GridView>
         </ContentTemplate>
