@@ -23,14 +23,14 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="LoginButton" runat="server" OnClick="Button1_Click" Text="Login" />
+        <asp:Button ID="LoginButton" runat="server" OnClick="Button1_Click" Text="Visualizza Palestre" />
         <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:mrc_dbConnectionString %>" ProviderName="<%$ ConnectionStrings:mrc_dbConnectionString.ProviderName %>" SelectCommand="SELECT nome_centro FROM palestra WHERE idtitolare = (SELECT idtitolare FROM titolare WHERE nome = @Nome AND cognome = @Cognome)"></asp:SqlDataSource>
             <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:mrc_dbConnectionString %>" ProviderName="<%$ ConnectionStrings:mrc_dbConnectionString.ProviderName %>" SelectCommand="SELECT DISTINCT idactigrafo FROM actigrafo WHERE palestra_idluogo = (SELECT DISTINCT idluogo FROM palestra WHERE nome_centro = @nome_centro)"></asp:SqlDataSource>
         <br />
 &nbsp;&nbsp;&nbsp;
         </div>
         <div id="palestre__div">
-        <asp:Label ID="Label4" runat="server" Text="Palestra" Font-Bold="True" Font-Names="Calibri" Font-Size="Large"></asp:Label>
+        <asp:Label ID="Label4" runat="server" Text="Palestre" Font-Bold="True" Font-Names="Calibri" Font-Size="Large"></asp:Label>
         <br />
         <br />
         <asp:DropDownList ID="DropDownList2" runat="server" DataSourceID="SqlDataSource4" DataTextField="nome_centro" DataValueField="nome_centro" style="margin-bottom: 0px" Font-Size="Medium">
