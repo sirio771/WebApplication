@@ -49,8 +49,8 @@
 
 table {
 		border-collapse:collapse;
-    border: 1px solid black;
-		width: 75%;
+        border: 1px solid black;
+		width: 55%;
 	}	
 
 table {
@@ -68,8 +68,7 @@ th, td {
 th, td {
 		padding: 10px;
 		text-align: left;
-    border: 1px solid black;
-		font-family: "Arial Black", Gadget, sans-serif;
+        border: 1px solid black;
 	}	
 
 th {

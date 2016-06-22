@@ -33,7 +33,7 @@
         <asp:Label ID="Label4" runat="server" Text="Palestra" Font-Bold="True" Font-Names="Calibri" Font-Size="Large"></asp:Label>
         <br />
         <br />
-        <asp:DropDownList ID="DropDownList2" runat="server" DataSourceID="SqlDataSource4" DataTextField="nome_centro" DataValueField="nome_centro" style="margin-bottom: 0px">
+        <asp:DropDownList ID="DropDownList2" runat="server" DataSourceID="SqlDataSource4" DataTextField="nome_centro" DataValueField="nome_centro" style="margin-bottom: 0px" Font-Size="Medium">
         </asp:DropDownList>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:Button ID="SensorButton" runat="server" OnClick="Button2_Click" Text="Carica Sensori" />
@@ -59,7 +59,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;
             <br />
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" DataSourceID="SqlDataSource3" DataTextField="idactigrafo" DataValueField="idactigrafo" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
+            <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" DataSourceID="SqlDataSource3" DataTextField="idactigrafo" DataValueField="idactigrafo" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged" Font-Size="Medium">
             </asp:DropDownList>
             <br />
             </div>
@@ -82,9 +82,11 @@
                 </Legends>
             </asp:Chart>
             <br />
-            <asp:Label ID="gymLabel" runat="server" Font-Bold="True" Font-Names="Calibri" Font-Size="Medium" Text="Stato Palestra: "></asp:Label>
             <br />
-            <asp:Label ID="alarmLabel" runat="server" Font-Italic="True" Font-Names="Calibri" Text="Label"></asp:Label>
+            <asp:Label ID="gymLabel" runat="server" Font-Bold="True" Font-Names="Calibri" Font-Size="Large" Text="Stato Palestra: "></asp:Label>
+            <br />
+            <asp:Label ID="alarmLabel" runat="server" Font-Italic="True" Font-Names="Calibri" Text="Label" Font-Size="Large"></asp:Label>
+            <br />
             <br />
             <div id="tabella_div">
             <asp:GridView ID="GridView1" runat="server" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="idsensore_ambientale" DataSourceID="SqlDataSource1" OnSelectedIndexChanged="GridView1_SelectedIndexhanged" RowHeaderColumn="nome_centro" Width="734px">
