@@ -32,6 +32,7 @@ namespace Gest_Palestre
             //if (0 > DateTime.Compare(DateTime.Now, DateTime.Parse(Session["timeout"].ToString())))
             //{
             //Aggiorna tabella
+                                           
             SqlDataSource1.SelectCommand = "SELECT timestamp, pressione, temperatura, umidita, idsensore_ambientale FROM misura_ambientale WHERE idsensore_ambientale IN (SELECT idsensore FROM sensore_ambientale WHERE idluogo = (SELECT idluogo FROM palestra WHERE nome_centro = '" + DropDownList2.SelectedValue + "')) ORDER BY idmisura DESC LIMIT 20 ";
             SqlDataSource2.SelectCommand = "SELECT indice_attività, timestamp FROM misura_actigrafo WHERE idactigrafo = '" + DropDownList1.SelectedValue + "' AND timestamp BETWEEN timestamp(DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND timestamp(NOW()) ";
             SqlDataSource5.SelectCommand = "SELECT nome, cognome FROM utente WHERE actigrafo_idactigrafo = '" + DropDownList1.SelectedValue + "'";
@@ -40,7 +41,7 @@ namespace Gest_Palestre
             DataSourceSelectArguments sr = new DataSourceSelectArguments();
             DataView dv = (DataView)SqlDataSource5.Select(sr);
             if (dv.Count != 0)
-                Chart1.Series["Series1"].Name = dv[0][0].ToString() + dv[0][1].ToString();
+                Chart1.Series["Series1"].Name = dv[0][0].ToString() + " " + dv[0][1].ToString();
             //    ((Int32)DateTime.Parse(Session["timeout"].ToString()).Subtract(DateTime.Now).TotalMinutes).ToString();
             //}
         }
@@ -56,7 +57,7 @@ namespace Gest_Palestre
             CustomLabel Camminata = new CustomLabel(1.9, 2, "Lento", 0, LabelMarkStyle.None);
             CustomLabel Moderato = new CustomLabel(2.9, 3, "Moderato", 0, LabelMarkStyle.None);
             CustomLabel CorsaVeloce = new CustomLabel(3.9, 4, "Veloce", 0, LabelMarkStyle.None);
-            CustomLabel CorsaMoltoVeloce = new CustomLabel(4.9, 5, "Molto Veloce", 0, LabelMarkStyle.None);
+            CustomLabel CorsaMoltoVeloce = new CustomLabel(4.9, 5, "Vigoroso", 0, LabelMarkStyle.None);
             Chart1.ChartAreas[0].AxisY.CustomLabels.Add(Fermo);
             Chart1.ChartAreas[0].AxisY.CustomLabels.Add(Camminata);
             Chart1.ChartAreas[0].AxisY.CustomLabels.Add(Moderato);
