@@ -1,0 +1,84 @@
+﻿body {
+}
+
+#login_div {
+	text-align=center;
+	background-color=blue;
+}
+
+#SensorButton {
+    background-color: #528B8B;
+    border: beige;
+    color: white;
+    padding: 3px 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+#SensorButton :hover {
+	background-color: #1B3F8B
+}
+
+#SensorButton :active {
+  	background-color: #1B3F8B;
+  	transform: translateY(4px);
+}
+
+
+#LoginButton {
+    background-color: #528B8B;
+    border: beige;
+    color: white;
+    padding: 3px 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+#LoginButton:hover {
+	background-color: #1B3F8B
+}
+
+#LoginButton:active {
+  	background-color: #1B3F8B;
+  	transform: translateY(4px);
+}
+
+table {
+		border-collapse:collapse;
+    border: 1px solid black;
+		width: 75%;
+	}	
+
+table {
+    border-collapse: collapse;
+    border: 1px solid black;
+
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th, td {
+		padding: 10px;
+		text-align: left;
+    border: 1px solid black;
+		font-family: "Arial Black", Gadget, sans-serif;
+	}	
+
+th {
+    background-color: #528B8B;
+    color: whitesmoke;
+	}
+
+tr:not(:first-child):hover{background-color:#C0D9D9; font-style:italic;}
+
+#tabella_div {
+
+}
