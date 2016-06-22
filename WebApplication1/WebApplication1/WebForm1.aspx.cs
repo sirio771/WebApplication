@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.DataVisualization.Charting;
 using System.Web.UI.WebControls;
+using System.Data;
 
 namespace Gest_Palestre
 {
@@ -31,10 +32,15 @@ namespace Gest_Palestre
             //if (0 > DateTime.Compare(DateTime.Now, DateTime.Parse(Session["timeout"].ToString())))
             //{
             //Aggiorna tabella
+            SqlDataSource1.SelectCommand = "SELECT timestamp, pressione, temperatura, umidita, idsensore_ambientale FROM misura_ambientale WHERE idsensore_ambientale IN (SELECT idsensore FROM sensore_ambientale WHERE idluogo = (SELECT idluogo FROM palestra WHERE nome_centro = '" + DropDownList2.SelectedValue + "')) ORDER BY idmisura DESC LIMIT 20 ";
             SqlDataSource2.SelectCommand = "SELECT indice_attività, timestamp FROM misura_actigrafo WHERE idactigrafo = '" + DropDownList1.SelectedValue + "' AND timestamp BETWEEN timestamp(DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND timestamp(NOW()) ";
+            SqlDataSource5.SelectCommand = "SELECT nome, cognome FROM utente WHERE actigrafo_idactigrafo = '" + DropDownList1.SelectedValue + "'";
             GridView1.DataBind();
             Label1.Text = DateTime.Now.ToString();
-            Chart1.Series["Series1"].Name = "Sensore " + DropDownList1.SelectedValue;
+            DataSourceSelectArguments sr = new DataSourceSelectArguments();
+            DataView dv = (DataView)SqlDataSource5.Select(sr);
+            if (dv.Count != 0)
+                Chart1.Series["Series1"].Name = dv[0][0].ToString() + dv[0][1].ToString();
             //    ((Int32)DateTime.Parse(Session["timeout"].ToString()).Subtract(DateTime.Now).TotalMinutes).ToString();
             //}
         }
