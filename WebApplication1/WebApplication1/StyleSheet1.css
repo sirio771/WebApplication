@@ -1,11 +1,6 @@
 ﻿body {
 }
 
-#login_div {
-	text-align=center;
-	background-color=blue;
-}
-
 #SensorButton {
     background-color: #528B8B;
     border: beige;
@@ -17,11 +12,11 @@
     font-size: 16px;
 }
 
-#SensorButton :hover {
-	background-color: #1B3F8B
+#SensorButton:hover {
+	background-color: #1B3F8B;
 }
 
-#SensorButton :active {
+#SensorButton:active {
   	background-color: #1B3F8B;
   	transform: translateY(4px);
 }
@@ -39,7 +34,7 @@
 }
 
 #LoginButton:hover {
-	background-color: #1B3F8B
+	background-color: #1B3F8B;
 }
 
 #LoginButton:active {
@@ -77,6 +72,10 @@ th {
 	}
 
 tr:not(:first-child):hover{background-color:#C0D9D9; font-style:italic;}
+
+tr:first-child {
+    background-color: darkblue;
+}
 
 #tabella_div {
 

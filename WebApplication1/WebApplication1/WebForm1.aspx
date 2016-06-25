@@ -16,7 +16,7 @@
         <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true"></asp:ScriptManager>
         <asp:Timer ID="timer1" runat="server" Interval="3000" OnTick="timer1_tick"></asp:Timer>
         <asp:Label ID="Label2" runat="server" Text="Nome Titolare" Font-Bold="True" Font-Names="Calibri" Font-Size="Large"></asp:Label>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="Label3" runat="server" Text="Cognome Titolare" BorderColor="#000099" Font-Bold="True" Font-Names="Calibri" Font-Size="Large"></asp:Label>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;<asp:Label ID="Label3" runat="server" Text="Cognome Titolare" BorderColor="#000099" Font-Bold="True" Font-Names="Calibri" Font-Size="Large"></asp:Label>
         <br />
         <br />
         <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
@@ -65,9 +65,10 @@
             </div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:mrc_dbConnectionString %>" ProviderName="<%$ ConnectionStrings:mrc_dbConnectionString.ProviderName %>" SelectCommand="SELECT timestamp, pressione, temperatura, umidita, idsensore_ambientale FROM misura_ambientale WHERE idsensore_ambientale IN (SELECT idsensore FROM sensore_ambientale WHERE idluogo = (SELECT idluogo FROM palestra WHERE nome_centro = @Nome)) ORDER BY idmisura DESC LIMIT 20 " OnSelecting="SqlDataSource1_Selecting"></asp:SqlDataSource>
+            <asp:SqlDataSource ID="SqlDataSource6" runat="server" ConnectionString="<%$ ConnectionStrings:mrc_dbConnectionString %>" ProviderName="<%$ ConnectionStrings:mrc_dbConnectionString.ProviderName %>" SelectCommand="SELECT DISTINCT idsensore FROM storico_errore WHERE idsensore IN (SELECT idsensore FROM sensore_ambientale WHERE idluogo = (SELECT idluogo FROM palestra WHERE nome_centro = @NomePalestra)) AND TIMESTAMP BETWEEN TIMESTAMP (DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND TIMESTAMP (NOW()) "></asp:SqlDataSource>
             <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:mrc_dbConnectionString %>" ProviderName="<%$ ConnectionStrings:mrc_dbConnectionString.ProviderName %>" SelectCommand="SELECT `indice_attività`, `timestamp` FROM misura_actigrafo WHERE (idactigrafo =@Param1) AND TIMESTAMP BETWEEN TIMESTAMP (DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND TIMESTAMP (NOW()) " OnSelecting="SqlDataSource2_Selecting"></asp:SqlDataSource>
             <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:mrc_dbConnectionString %>" ProviderName="<%$ ConnectionStrings:mrc_dbConnectionString.ProviderName %>" SelectCommand="SELECT nome, cognome FROM utente WHERE actigrafo_idactigrafo = @actigrafo"></asp:SqlDataSource>
-            <asp:Chart ID="Chart1" runat="server" DataSourceID="SqlDataSource2" OnLoad="Chart1_Load" style="margin-top: 0px" Width="884px">
+            <asp:Chart ID="Chart1" runat="server" DataSourceID="SqlDataSource2" OnLoad="Chart1_Load" style="margin-top: 0px" Width="1162px" Height="539px">
                 <Series>
                     <asp:Series ChartArea="ChartArea1" Legend="Legend1" Name="Series1" XValueMember="timestamp" YValueMembers="indice_attività">
                     </asp:Series>
@@ -85,17 +86,30 @@
             <br />
             <asp:Label ID="gymLabel" runat="server" Font-Bold="True" Font-Names="Calibri" Font-Size="Large" Text="Stato Palestra: "></asp:Label>
             <br />
-            <asp:Label ID="alarmLabel" runat="server" Font-Italic="True" Font-Names="Calibri" Text="Label" Font-Size="Large"></asp:Label>
+            <asp:Label ID="alarmLabel" runat="server" Font-Italic="True" Font-Names="Calibri" Font-Size="Large"></asp:Label>
+            <br />
+            <asp:SqlDataSource ID="SqlDataSource7" runat="server" ConnectionString="<%$ ConnectionStrings:mrc_dbConnectionString %>" ProviderName="<%$ ConnectionStrings:mrc_dbConnectionString.ProviderName %>" SelectCommand="SELECT DISTINCT * FROM storico_errore WHERE idsensore IN (SELECT idsensore FROM sensore_ambientale WHERE idluogo = (SELECT idluogo FROM palestra WHERE nome_centro = @NomePalestra)) AND TIMESTAMP BETWEEN TIMESTAMP (DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND TIMESTAMP (NOW()) "></asp:SqlDataSource>
             <br />
             <br />
             <div id="tabella_div">
             <asp:GridView ID="GridView1" runat="server" AllowSorting="True" AutoGenerateColumns="False" DataKeyNames="idsensore_ambientale" DataSourceID="SqlDataSource1" OnSelectedIndexChanged="GridView1_SelectedIndexhanged" RowHeaderColumn="nome_centro" Width="734px">
                 <Columns>
-                    <asp:BoundField DataField="timestamp" HeaderText="Ora" SortExpression="timestamp" />
-                    <asp:BoundField DataField="pressione" HeaderText="Pressione (mbar)" SortExpression="pressione" />
-                    <asp:BoundField DataField="temperatura" HeaderText="Temperatura (°C)" SortExpression="temperatura" />
-                    <asp:BoundField DataField="umidita" HeaderText="Umidità (%)" SortExpression="umidita" />
-                    <asp:BoundField DataField="idsensore_ambientale" HeaderText="IDsensore" ReadOnly="True" SortExpression="idsensore_ambientale" />
+                    <asp:BoundField DataField="timestamp" HeaderText="Ora" SortExpression="timestamp" >
+                    <HeaderStyle Font-Bold="True" Font-Italic="False" Font-Names="Calibri" Font-Size="Large" ForeColor="White" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="pressione" HeaderText="Pressione (mbar)" SortExpression="pressione" >
+                    <ControlStyle Font-Bold="True" Font-Names="Calibri" Font-Size="Large" ForeColor="White" />
+                    <HeaderStyle Font-Bold="True" Font-Names="Calibri" Font-Size="Large" ForeColor="White" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="temperatura" HeaderText="Temperatura (°C)" SortExpression="temperatura" >
+                    <HeaderStyle Font-Bold="True" Font-Names="Calibri" Font-Size="Large" ForeColor="White" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="umidita" HeaderText="Umidità (%)" SortExpression="umidita" >
+                    <HeaderStyle Font-Bold="True" Font-Names="Calibri" Font-Size="Large" ForeColor="White" />
+                    </asp:BoundField>
+                    <asp:BoundField DataField="idsensore_ambientale" HeaderText="IDsensore" ReadOnly="True" SortExpression="idsensore_ambientale" >
+                    <HeaderStyle Font-Bold="True" Font-Names="Calibri" Font-Size="Large" ForeColor="White" />
+                    </asp:BoundField>
                 </Columns>
             </asp:GridView>
             </div>

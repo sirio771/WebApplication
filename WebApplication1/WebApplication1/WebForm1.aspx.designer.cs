@@ -175,6 +175,15 @@ namespace Gest_Palestre {
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
         
         /// <summary>
+        /// Controllo SqlDataSource6.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource6;
+        
+        /// <summary>
         /// Controllo SqlDataSource2.
         /// </summary>
         /// <remarks>
@@ -218,6 +227,15 @@ namespace Gest_Palestre {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label alarmLabel;
+        
+        /// <summary>
+        /// Controllo SqlDataSource7.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource7;
         
         /// <summary>
         /// Controllo GridView1.

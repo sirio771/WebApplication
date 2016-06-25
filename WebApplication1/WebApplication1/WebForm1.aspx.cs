@@ -36,13 +36,34 @@ namespace Gest_Palestre
             SqlDataSource1.SelectCommand = "SELECT timestamp, pressione, temperatura, umidita, idsensore_ambientale FROM misura_ambientale WHERE idsensore_ambientale IN (SELECT idsensore FROM sensore_ambientale WHERE idluogo = (SELECT idluogo FROM palestra WHERE nome_centro = '" + DropDownList2.SelectedValue + "')) ORDER BY idmisura DESC LIMIT 20 ";
             SqlDataSource2.SelectCommand = "SELECT indice_attività, timestamp FROM misura_actigrafo WHERE idactigrafo = '" + DropDownList1.SelectedValue + "' AND timestamp BETWEEN timestamp(DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND timestamp(NOW()) ";
             SqlDataSource5.SelectCommand = "SELECT nome, cognome FROM utente WHERE actigrafo_idactigrafo = '" + DropDownList1.SelectedValue + "'";
+            SqlDataSource6.SelectCommand = "SELECT DISTINCT idsensore FROM storico_errore WHERE idsensore IN (SELECT idsensore FROM sensore_ambientale WHERE idluogo = (SELECT idluogo FROM palestra WHERE nome_centro = '" + DropDownList2.SelectedValue + "')) AND TIMESTAMP BETWEEN TIMESTAMP (DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND TIMESTAMP (NOW()) ";
+            //SqlDataSource7.SelectCommand = "SELECT DISTINCT * FROM storico_errore WHERE idsensore IN (SELECT idsensore FROM sensore_ambientale WHERE idluogo = (SELECT idluogo FROM palestra WHERE nome_centro = '" + DropDownList2.SelectedValue + "')) AND TIMESTAMP BETWEEN TIMESTAMP (DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND TIMESTAMP (NOW()) ";
             GridView1.DataBind();
             Label1.Text = DateTime.Now.ToString();
             DataSourceSelectArguments sr = new DataSourceSelectArguments();
+            DataSourceSelectArguments sr_2 = new DataSourceSelectArguments();
+            //DataSourceSelectArguments sr_3 = new DataSourceSelectArguments();
+            //DataView dv_3 = (DataView)SqlDataSource7.Select(sr_3);
             DataView dv = (DataView)SqlDataSource5.Select(sr);
+            DataView dv_2 = (DataView)SqlDataSource6.Select(sr_2);
             if (dv.Count != 0)
+            {
                 Chart1.Series["Series1"].Name = dv[0][0].ToString() + " " + dv[0][1].ToString();
-            //    ((Int32)DateTime.Parse(Session["timeout"].ToString()).Subtract(DateTime.Now).TotalMinutes).ToString();
+                Chart1.Legends[0].Font = new System.Drawing.Font("Trebuchet MS", 15F, System.Drawing.FontStyle.Bold);
+            }
+            if (dv_2.Count != 0)
+            {
+                alarmLabel.ForeColor = System.Drawing.Color.Red;
+                alarmLabel.Font.Size = 32;
+                alarmLabel.Text = "Rilevate anomalie su " + dv_2.Count + " sensori ambientali";
+            }
+            else
+            {
+                alarmLabel.ForeColor = System.Drawing.Color.Green;
+                alarmLabel.Font.Size = 12;
+                alarmLabel.Text = "Nessuna anomalia rilevata";
+            }
+                           //    ((Int32)DateTime.Parse(Session["timeout"].ToString()).Subtract(DateTime.Now).TotalMinutes).ToString();
             //}
         }
 
@@ -64,8 +85,12 @@ namespace Gest_Palestre
             Chart1.ChartAreas[0].AxisY.CustomLabels.Add(CorsaVeloce);
             Chart1.ChartAreas[0].AxisY.CustomLabels.Add(CorsaMoltoVeloce);
             Chart1.ChartAreas[0].AxisX.LabelStyle.Interval = 4;
+            Chart1.ChartAreas[0].AxisY.LabelAutoFitStyle= LabelAutoFitStyles.None;
+            Chart1.ChartAreas[0].AxisX.LabelAutoFitStyle = LabelAutoFitStyles.None;
+            Chart1.ChartAreas[0].AxisX.LabelStyle.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold);
+            Chart1.ChartAreas[0].AxisY.LabelStyle.Font = new System.Drawing.Font("Trebuchet MS", 22.5F, System.Drawing.FontStyle.Bold);
             Chart1.ChartAreas[0].AxisX.LabelStyle.IntervalType = DateTimeIntervalType.Seconds;
-            Chart1.ChartAreas[0].AxisX.LabelStyle.Format = "hh:mm:ss";
+            Chart1.ChartAreas[0].AxisX.LabelStyle.Format = "HH:mm:ss";
             Chart1.ChartAreas[0].AxisX.IntervalType = DateTimeIntervalType.Seconds;
         }
 
