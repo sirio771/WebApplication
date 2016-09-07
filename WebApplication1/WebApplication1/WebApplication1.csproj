@@ -208,6 +208,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Account\Web.config" />
+    <Content Include="Models\Fermo.png" />
+    <Content Include="Models\Lento.png" />
+    <Content Include="Models\Moderato.png" />
+    <Content Include="Models\Veloce.png" />
+    <Content Include="Models\Vigoroso.png" />
     <Content Include="StyleSheet1.css" />
     <Content Include="WebForm1.aspx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

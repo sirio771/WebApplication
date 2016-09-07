@@ -211,6 +211,15 @@ namespace Gest_Palestre {
         protected global::System.Web.UI.DataVisualization.Charting.Chart Chart1;
         
         /// <summary>
+        /// Controllo Image1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image1;
+        
+        /// <summary>
         /// Controllo gymLabel.
         /// </summary>
         /// <remarks>
@@ -236,6 +245,15 @@ namespace Gest_Palestre {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource7;
+        
+        /// <summary>
+        /// Controllo GridView2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridView2;
         
         /// <summary>
         /// Controllo GridView1.

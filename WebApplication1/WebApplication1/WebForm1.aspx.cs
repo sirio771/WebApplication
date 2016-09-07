@@ -37,15 +37,19 @@ namespace Gest_Palestre
             SqlDataSource2.SelectCommand = "SELECT indice_attività, timestamp FROM misura_actigrafo WHERE idactigrafo = '" + DropDownList1.SelectedValue + "' AND timestamp BETWEEN timestamp(DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND timestamp(NOW()) ";
             SqlDataSource5.SelectCommand = "SELECT nome, cognome FROM utente WHERE actigrafo_idactigrafo = '" + DropDownList1.SelectedValue + "'";
             SqlDataSource6.SelectCommand = "SELECT DISTINCT idsensore FROM storico_errore WHERE idsensore IN (SELECT idsensore FROM sensore_ambientale WHERE idluogo = (SELECT idluogo FROM palestra WHERE nome_centro = '" + DropDownList2.SelectedValue + "')) AND TIMESTAMP BETWEEN TIMESTAMP (DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND TIMESTAMP (NOW()) ";
-            //SqlDataSource7.SelectCommand = "SELECT DISTINCT * FROM storico_errore WHERE idsensore IN (SELECT idsensore FROM sensore_ambientale WHERE idluogo = (SELECT idluogo FROM palestra WHERE nome_centro = '" + DropDownList2.SelectedValue + "')) AND TIMESTAMP BETWEEN TIMESTAMP (DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND TIMESTAMP (NOW()) ";
+            SqlDataSource7.SelectCommand = "SELECT DISTINCT * FROM storico_errore WHERE idsensore IN (SELECT idsensore FROM sensore_ambientale WHERE idluogo = (SELECT idluogo FROM palestra WHERE nome_centro = '" + DropDownList2.SelectedValue + "')) AND TIMESTAMP BETWEEN TIMESTAMP (DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND TIMESTAMP (NOW()) ";
             GridView1.DataBind();
+            GridView2.DataBind();
             Label1.Text = DateTime.Now.ToString();
             DataSourceSelectArguments sr = new DataSourceSelectArguments();
             DataSourceSelectArguments sr_2 = new DataSourceSelectArguments();
+            DataSourceSelectArguments sr_3 = new DataSourceSelectArguments();
             //DataSourceSelectArguments sr_3 = new DataSourceSelectArguments();
             //DataView dv_3 = (DataView)SqlDataSource7.Select(sr_3);
             DataView dv = (DataView)SqlDataSource5.Select(sr);
-            DataView dv_2 = (DataView)SqlDataSource6.Select(sr_2);
+            DataView dv_2 = (DataView)SqlDataSource7.Select(sr_2);
+            DataView dv_3 = (DataView)SqlDataSource2.Select(sr_3);
+            DataTable dt = dv_3.ToTable();
             if (dv.Count != 0)
             {
                 Chart1.Series["Series1"].Name = dv[0][0].ToString() + " " + dv[0][1].ToString();
@@ -55,7 +59,10 @@ namespace Gest_Palestre
             {
                 alarmLabel.ForeColor = System.Drawing.Color.Red;
                 alarmLabel.Font.Size = 32;
-                alarmLabel.Text = "Rilevate anomalie su " + dv_2.Count + " sensori ambientali";
+                if (dv_2.Count < 2)
+                    alarmLabel.Text = "Rilevate anomalie su " + dv_2.Count + " sensore ambientale";
+                else
+                    alarmLabel.Text = "Rilevate anomalie su " + dv_2.Count + " sensori ambientali";
             }
             else
             {
@@ -63,7 +70,21 @@ namespace Gest_Palestre
                 alarmLabel.Font.Size = 12;
                 alarmLabel.Text = "Nessuna anomalia rilevata";
             }
-                           //    ((Int32)DateTime.Parse(Session["timeout"].ToString()).Subtract(DateTime.Now).TotalMinutes).ToString();
+            if (dv_3.Count > 0)
+            {
+                int num = int.Parse(dv_3[dv_3.Count - 1][0].ToString());
+                if (num == 1)
+                    Image1.ImageUrl = "~/Models/Fermo.png";
+                else if (num == 2)
+                    Image1.ImageUrl = "~/Models/Lento.png";
+                else if (num == 3)
+                    Image1.ImageUrl = "~/Models/Moderato.png";
+                else if (num == 4)
+                    Image1.ImageUrl = "~/Models/Veloce.png";
+                else if (num == 5)
+                    Image1.ImageUrl = "~/Models/Vigoroso.png";
+            }
+            //    ((Int32)DateTime.Parse(Session["timeout"].ToString()).Subtract(DateTime.Now).TotalMinutes).ToString();
             //}
         }
 

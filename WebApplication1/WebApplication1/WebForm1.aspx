@@ -82,6 +82,7 @@
                     </asp:Legend>
                 </Legends>
             </asp:Chart>
+            <asp:Image ID="Image1" runat="server" />
             <br />
             <br />
             <asp:Label ID="gymLabel" runat="server" Font-Bold="True" Font-Names="Calibri" Font-Size="Large" Text="Stato Palestra: "></asp:Label>
@@ -89,6 +90,17 @@
             <asp:Label ID="alarmLabel" runat="server" Font-Italic="True" Font-Names="Calibri" Font-Size="Large"></asp:Label>
             <br />
             <asp:SqlDataSource ID="SqlDataSource7" runat="server" ConnectionString="<%$ ConnectionStrings:mrc_dbConnectionString %>" ProviderName="<%$ ConnectionStrings:mrc_dbConnectionString.ProviderName %>" SelectCommand="SELECT DISTINCT * FROM storico_errore WHERE idsensore IN (SELECT idsensore FROM sensore_ambientale WHERE idluogo = (SELECT idluogo FROM palestra WHERE nome_centro = @NomePalestra)) AND TIMESTAMP BETWEEN TIMESTAMP (DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND TIMESTAMP (NOW()) "></asp:SqlDataSource>
+            <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataKeyNames="iderrore,idmisure,idsensore" DataSourceID="SqlDataSource7">
+                <Columns>
+                    <asp:BoundField DataField="iderrore" HeaderText="iderrore" InsertVisible="False" ReadOnly="True" SortExpression="iderrore" />
+                    <asp:BoundField DataField="erPress" HeaderText="erPress" SortExpression="erPress" />
+                    <asp:BoundField DataField="erTemp" HeaderText="erTemp" SortExpression="erTemp" />
+                    <asp:BoundField DataField="erUmid" HeaderText="erUmid" SortExpression="erUmid" />
+                    <asp:BoundField DataField="timestamp" HeaderText="timestamp" SortExpression="timestamp" />
+                    <asp:BoundField DataField="idmisure" HeaderText="idmisure" ReadOnly="True" SortExpression="idmisure" />
+                    <asp:BoundField DataField="idsensore" HeaderText="idsensore" ReadOnly="True" SortExpression="idsensore" />
+                </Columns>
+            </asp:GridView>
             <br />
             <br />
             <div id="tabella_div">
