@@ -256,6 +256,33 @@ namespace Gest_Palestre {
         protected global::System.Web.UI.WebControls.GridView GridView2;
         
         /// <summary>
+        /// Controllo Chart2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.DataVisualization.Charting.Chart Chart2;
+        
+        /// <summary>
+        /// Controllo Chart3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.DataVisualization.Charting.Chart Chart3;
+        
+        /// <summary>
+        /// Controllo SqlDataSource8.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource8;
+        
+        /// <summary>
         /// Controllo GridView1.
         /// </summary>
         /// <remarks>

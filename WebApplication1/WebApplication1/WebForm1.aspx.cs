@@ -36,8 +36,9 @@ namespace Gest_Palestre
             SqlDataSource1.SelectCommand = "SELECT timestamp, pressione, temperatura, umidita, idsensore_ambientale FROM misura_ambientale WHERE idsensore_ambientale IN (SELECT idsensore FROM sensore_ambientale WHERE idluogo = (SELECT idluogo FROM palestra WHERE nome_centro = '" + DropDownList2.SelectedValue + "')) ORDER BY idmisura DESC LIMIT 20 ";
             SqlDataSource2.SelectCommand = "SELECT indice_attività, timestamp FROM misura_actigrafo WHERE idactigrafo = '" + DropDownList1.SelectedValue + "' AND timestamp BETWEEN timestamp(DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND timestamp(NOW()) ";
             SqlDataSource5.SelectCommand = "SELECT nome, cognome FROM utente WHERE actigrafo_idactigrafo = '" + DropDownList1.SelectedValue + "'";
-            SqlDataSource6.SelectCommand = "SELECT DISTINCT idsensore FROM storico_errore WHERE idsensore IN (SELECT idsensore FROM sensore_ambientale WHERE idluogo = (SELECT idluogo FROM palestra WHERE nome_centro = '" + DropDownList2.SelectedValue + "')) AND TIMESTAMP BETWEEN TIMESTAMP (DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND TIMESTAMP (NOW()) ";
-            SqlDataSource7.SelectCommand = "SELECT DISTINCT * FROM storico_errore WHERE idsensore IN (SELECT idsensore FROM sensore_ambientale WHERE idluogo = (SELECT idluogo FROM palestra WHERE nome_centro = '" + DropDownList2.SelectedValue + "')) AND TIMESTAMP BETWEEN TIMESTAMP (DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND TIMESTAMP (NOW()) ";
+            SqlDataSource6.SelectCommand = "SELECT DISTINCT idsensore FROM storico_errore WHERE idsensore IN (SELECT idsensore FROM sensore_ambientale WHERE idluogo = (SELECT idluogo FROM palestra WHERE nome_centro = '" + DropDownList2.SelectedValue + "')) AND TIMESTAMP BETWEEN TIMESTAMP (DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND TIMESTAMP (NOW()) ORDER BY iderrore DESC LIMIT 1";
+            SqlDataSource7.SelectCommand = "SELECT DISTINCT * FROM storico_errore WHERE idsensore IN (SELECT idsensore FROM sensore_ambientale WHERE idluogo = (SELECT idluogo FROM palestra WHERE nome_centro = '" + DropDownList2.SelectedValue + "')) AND TIMESTAMP BETWEEN TIMESTAMP (DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND TIMESTAMP (NOW()) ORDER BY iderrore DESC LIMIT 1 ";
+            SqlDataSource8.SelectCommand = "SELECT timestamp, pressione, temperatura, umidita, idsensore_ambientale FROM misura_ambientale WHERE idsensore_ambientale IN (SELECT idsensore FROM sensore_ambientale WHERE idluogo = (SELECT idluogo FROM palestra WHERE nome_centro = '" + DropDownList2.SelectedValue + "')) ORDER BY idmisura DESC LIMIT 1 ";
             GridView1.DataBind();
             GridView2.DataBind();
             Label1.Text = DateTime.Now.ToString();
@@ -133,6 +134,25 @@ namespace Gest_Palestre
         protected void Button2_Click(object sender, EventArgs e)
         {
             SqlDataSource3.SelectCommand = "SELECT DISTINCT idactigrafo FROM actigrafo WHERE palestra_idluogo = (SELECT DISTINCT idluogo FROM palestra WHERE nome_centro = '" + DropDownList2.SelectedValue + "')";
+        }
+
+        protected void Chart2_Load(object sender, EventArgs e)
+        {
+            Chart2.Series[0].YAxisType = AxisType.Primary;
+            Chart2.Series[1].YAxisType = AxisType.Secondary;
+            Chart2.ChartAreas[0].AxisY.LabelAutoFitStyle = LabelAutoFitStyles.None;
+            Chart2.ChartAreas[0].AxisX.LabelAutoFitStyle = LabelAutoFitStyles.None;
+            Chart2.ChartAreas[0].AxisX.LabelStyle.Font = new System.Drawing.Font("Trebuchet MS", 12F, System.Drawing.FontStyle.Bold);
+            Chart2.ChartAreas[0].AxisY.LabelStyle.Font = new System.Drawing.Font("Trebuchet MS", 22.5F, System.Drawing.FontStyle.Bold);
+            Chart2.ChartAreas[0].AxisX.LabelStyle.IntervalType = DateTimeIntervalType.Seconds;
+            Chart2.ChartAreas[0].AxisX.LabelStyle.Format = "HH:mm:ss";
+            Chart2.ChartAreas[0].AxisX.IntervalType = DateTimeIntervalType.Seconds;
+            
+        }
+
+        protected void Chart3_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }

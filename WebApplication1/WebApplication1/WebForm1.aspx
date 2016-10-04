@@ -89,7 +89,7 @@
             <br />
             <asp:Label ID="alarmLabel" runat="server" Font-Italic="True" Font-Names="Calibri" Font-Size="Large"></asp:Label>
             <br />
-            <asp:SqlDataSource ID="SqlDataSource7" runat="server" ConnectionString="<%$ ConnectionStrings:mrc_dbConnectionString %>" ProviderName="<%$ ConnectionStrings:mrc_dbConnectionString.ProviderName %>" SelectCommand="SELECT DISTINCT * FROM storico_errore WHERE idsensore IN (SELECT idsensore FROM sensore_ambientale WHERE idluogo = (SELECT idluogo FROM palestra WHERE nome_centro = @NomePalestra)) AND TIMESTAMP BETWEEN TIMESTAMP (DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND TIMESTAMP (NOW()) "></asp:SqlDataSource>
+            <asp:SqlDataSource ID="SqlDataSource7" runat="server" ConnectionString="<%$ ConnectionStrings:mrc_dbConnectionString %>" ProviderName="<%$ ConnectionStrings:mrc_dbConnectionString.ProviderName %>" SelectCommand="SELECT DISTINCT * FROM storico_errore WHERE idsensore IN (SELECT DISTINCT idsensore FROM sensore_ambientale WHERE idluogo = (SELECT idluogo FROM palestra WHERE nome_centro = @NomePalestra)) AND TIMESTAMP BETWEEN TIMESTAMP (DATE_SUB(NOW(), INTERVAL 1 MINUTE)) AND TIMESTAMP (NOW()) ORDER BY iderrore DESC LIMIT 1"></asp:SqlDataSource>
             <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataKeyNames="iderrore,idmisure,idsensore" DataSourceID="SqlDataSource7">
                 <Columns>
                     <asp:BoundField DataField="iderrore" HeaderText="iderrore" InsertVisible="False" ReadOnly="True" SortExpression="iderrore" />
@@ -101,6 +101,43 @@
                     <asp:BoundField DataField="idsensore" HeaderText="idsensore" ReadOnly="True" SortExpression="idsensore" />
                 </Columns>
             </asp:GridView>
+            <asp:Chart ID="Chart2" runat="server" DataSourceID="SqlDataSource1" Height="413px" OnLoad="Chart2_Load" Width="956px">
+                <Series>
+                    <asp:Series BorderWidth="10" ChartType="Line" Color="Red" Legend="Legend1" Name="Temperatura" XValueMember="timestamp" YValueMembers="temperatura">
+                    </asp:Series>
+                    <asp:Series BorderWidth="10" ChartArea="ChartArea1" ChartType="Line" Color="Yellow" Legend="Legend1" Name="Umidità" XValueMember="timestamp" YValueMembers="umidita">
+                    </asp:Series>
+                </Series>
+                <ChartAreas>
+                    <asp:ChartArea Name="ChartArea1">
+                        <AxisY Title="°C">
+                        </AxisY>
+                        <AxisX Title="Tempo">
+                        </AxisX>
+                        <AxisY2 Enabled="True" Title="%">
+                        </AxisY2>
+                    </asp:ChartArea>
+                </ChartAreas>
+                <Legends>
+                    <asp:Legend Name="Legend1" TitleFont="Microsoft Sans Serif, 12pt, style=Bold">
+                    </asp:Legend>
+                </Legends>
+            </asp:Chart>
+            <asp:Chart ID="Chart3" runat="server" DataSourceID="SqlDataSource8" Height="400px" ImageLocation="" OnLoad="Chart3_Load" Width="400px">
+                <Series>
+                    <asp:Series BorderWidth="100" ChartType="Bubble" Color="Black" Name="Series1" XValueMember="temperatura" YValueMembers="umidita" YValuesPerPoint="2">
+                    </asp:Series>
+                </Series>
+                <ChartAreas>
+                    <asp:ChartArea BackImage="~/Models/afa.gif" BackImageAlignment="TopRight" Name="ChartArea1">
+                        <AxisY Maximum="100" Minimum="10" Title="%">
+                        </AxisY>
+                        <AxisX Maximum="42" Minimum="19" Title="°C">
+                        </AxisX>
+                    </asp:ChartArea>
+                </ChartAreas>
+            </asp:Chart>
+            <asp:SqlDataSource ID="SqlDataSource8" runat="server" ConnectionString="<%$ ConnectionStrings:mrc_dbConnectionString %>" ProviderName="<%$ ConnectionStrings:mrc_dbConnectionString.ProviderName %>" SelectCommand="SELECT timestamp, pressione, temperatura, umidita, idsensore_ambientale FROM misura_ambientale WHERE idsensore_ambientale IN (SELECT idsensore FROM sensore_ambientale WHERE idluogo = (SELECT idluogo FROM palestra WHERE nome_centro = @Nome)) ORDER BY idmisura DESC LIMIT 1"></asp:SqlDataSource>
             <br />
             <br />
             <div id="tabella_div">
